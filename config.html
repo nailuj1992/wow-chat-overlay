@@ -43,27 +43,26 @@
   <form id="f">
     <fieldset>
       <legend>Twitch</legend>
-      <label>Channel(s), comma separated</label>
-      <input type="text" name="twitch" placeholder="mychannel">
+      <label for="f-twitch">Channel(s), comma separated</label>
+      <input type="text" id="f-twitch" name="twitch" placeholder="mychannel">
     </fieldset>
 
     <fieldset>
       <legend>YouTube (optional)</legend>
-      <label>API key (YouTube Data API v3)</label>
-      <input type="text" name="youtube_key" placeholder="AIza...">
-      <label>Live video ID (cheaper) <small>— or —</small> channel ID (UC…)</label>
+      <label for="f-youtube_key">API key (YouTube Data API v3)</label>
+      <input type="text" id="f-youtube_key" name="youtube_key" placeholder="AIza...">
       <div class="row">
-        <input type="text" name="youtube_video" placeholder="video ID">
-        <input type="text" name="youtube_channel" placeholder="UC...">
+        <div><label for="f-youtube_video">Live video ID (cheaper)</label><input type="text" id="f-youtube_video" name="youtube_video" placeholder="video ID"></div>
+        <div><label for="f-youtube_channel">or channel ID (UC…)</label><input type="text" id="f-youtube_channel" name="youtube_channel" placeholder="UC..."></div>
       </div>
-      <label>Min poll interval (s)</label>
-      <input type="number" name="youtube_interval" min="2" step="1">
+      <label for="f-youtube_interval">Min poll interval (s)</label>
+      <input type="number" id="f-youtube_interval" name="youtube_interval" min="2" step="1">
     </fieldset>
 
     <fieldset>
       <legend>Filters</legend>
-      <label>Hidden users (comma separated)</label>
-      <textarea name="hide"></textarea>
+      <label for="f-hide">Hidden users (comma separated)</label>
+      <textarea id="f-hide" name="hide"></textarea>
       <div class="check"><input type="checkbox" name="hide_commands" id="hc"><label for="hc" style="margin:0;color:inherit">Hide !commands</label></div>
       <label for="show-commands">Commands still shown, without the "!cmd" prefix (e.g. TTS: <code>s</code>)</label>
       <input type="text" id="show-commands" name="show_commands" placeholder="s,tts">
@@ -80,13 +79,13 @@
 
     <fieldset>
       <legend>Size &amp; opacity</legend>
-      <label>Background opacity: <output data-for="bg"></output></label>
-      <input type="range" name="bg" min="0" max="1" step="0.05">
-      <label>Chat opacity (text + background): <output data-for="opacity"></output></label>
-      <input type="range" name="opacity" min="0.1" max="1" step="0.05">
+      <label for="f-bg">Background opacity: <output data-for="bg"></output></label>
+      <input type="range" id="f-bg" name="bg" min="0" max="1" step="0.05">
+      <label for="f-opacity">Chat opacity (text + background): <output data-for="opacity"></output></label>
+      <input type="range" id="f-opacity" name="opacity" min="0.1" max="1" step="0.05">
       <div class="row">
-        <div><label>Width (px, 0 = fill source)</label><input type="number" name="width" min="0" step="10"></div>
-        <div><label>Height (px, 0 = fill source)</label><input type="number" name="height" min="0" step="10"></div>
+        <div><label for="f-width">Width (px, 0 = fill source)</label><input type="number" id="f-width" name="width" min="0" step="10"></div>
+        <div><label for="f-height">Height (px, 0 = fill source)</label><input type="number" id="f-height" name="height" min="0" step="10"></div>
       </div>
       <small>Tip: with 0 the chat fills the OBS Browser Source, so you can also just resize the source in OBS.</small>
     </fieldset>
@@ -94,22 +93,22 @@
     <fieldset>
       <legend>Look</legend>
       <div class="row">
-        <div><label>Language</label>
-          <select name="lang"><option value="en">English ([Officer])</option><option value="es">Español ([Oficial])</option></select></div>
-        <div><label>Name colors</label>
-          <select name="names"><option value="class">WoW class colors</option><option value="platform">Twitch / YouTube colors</option><option value="channel">Same as line</option></select></div>
+        <div><label for="f-lang">Language</label>
+          <select id="f-lang" name="lang"><option value="en">English ([Officer])</option><option value="es">Español ([Oficial])</option></select></div>
+        <div><label for="f-names">Name colors</label>
+          <select id="f-names" name="names"><option value="class">WoW class colors</option><option value="platform">Twitch / YouTube colors</option><option value="channel">Same as line</option></select></div>
       </div>
-      <label>Font size (px)</label><input type="number" name="font_size" min="8" max="60">
+      <label for="f-font_size">Font size (px)</label><input type="number" id="f-font_size" name="font_size" min="8" max="60">
       <div class="row">
-        <div><label>Fade after (s, 0 = never)</label><input type="number" name="fade" min="0"></div>
-        <div><label>Max messages</label><input type="number" name="max" min="1"></div>
+        <div><label for="f-fade">Fade after (s, 0 = never)</label><input type="number" id="f-fade" name="fade" min="0"></div>
+        <div><label for="f-max">Max messages</label><input type="number" id="f-max" name="max" min="1"></div>
       </div>
       <div class="row">
-        <div><label>Tab label (empty = none)</label><input type="text" name="tab"></div>
-        <div><label>Font override</label><input type="text" name="font" placeholder="Friz Quadrata TT"></div>
+        <div><label for="f-tab">Tab label (empty = none)</label><input type="text" id="f-tab" name="tab"></div>
+        <div><label for="f-font">Font override</label><input type="text" id="f-font" name="font" placeholder="Friz Quadrata TT"></div>
       </div>
-      <label>Platform badge</label>
-      <select name="platform_icon"><option value="auto">Auto (only with 2+ platforms)</option><option value="1">Always</option><option value="0">Never</option></select>
+      <label for="f-platform_icon">Platform badge</label>
+      <select id="f-platform_icon" name="platform_icon"><option value="auto">Auto (only with 2+ platforms)</option><option value="1">Always</option><option value="0">Never</option></select>
     </fieldset>
 
     <fieldset>
@@ -121,7 +120,7 @@
   <div class="preview">
     <div class="stage"><iframe id="preview" title="Preview"></iframe></div>
     <div class="out">
-      <label>Overlay URL for OBS</label>
+      <label for="url">Overlay URL for OBS</label>
       <textarea id="url" readonly></textarea>
       <button type="button" id="copy">Copy URL</button>
       <p><small>The preview uses demo messages. OBS: Sources → + → Browser → uncheck "Local file" → paste URL. Suggested size 500×400.</small></p>
@@ -133,7 +132,8 @@
 <script>
   const D = WC.DEFAULTS;
   const f = document.getElementById('f');
-  const base = location.href.replace(/config\.html.*$/, 'index.html');
+  // Resolve index.html next to this page. Works for /config.html, /config (GitHub Pages) and file://
+  const base = new URL('index.html', location.href).href;
   const CH = ['say','yell','whisper','emote','guild','officer','party','partyLeader','raid','raidLeader','raidWarning'];
 
   // Build role selects
@@ -142,7 +142,7 @@
     const d = document.createElement('div');
     const label = r === 'bot' ? 'bot (name ends in "bot")' : r;
     const off = r === 'bot' ? '<option value="">off</option>' : '';
-    d.innerHTML = `<label>${label}</label><select name="role_${r}">${off}${CH.map(c => `<option>${c}</option>`).join('')}</select>`;
+    d.innerHTML = `<label for="f-role_${r}">${label}</label><select id="f-role_${r}" name="role_${r}">${off}${CH.map(c => `<option>${c}</option>`).join('')}</select>`;
     roles.append(d);
   }
 
