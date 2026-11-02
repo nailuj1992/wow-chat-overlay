@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WoW Chat Overlay</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap">
+  <link rel="stylesheet" href="css/wow.css">
+</head>
+<body>
+  <div id="frame" class="chat-frame">
+    <div id="tab" class="chat-tab"><span id="tab-label">General</span></div>
+    <div id="log" class="chat-log"></div>
+  </div>
+
+  <!-- Classic scripts (not ES modules) so the overlay also works when opened as a local file in OBS. -->
+  <script src="js/config.js"></script>
+  <script src="js/emotes.js"></script>
+  <script src="js/render.js"></script>
+  <script src="js/providers/twitch.js"></script>
+  <script src="js/providers/youtube.js"></script>
+  <script src="js/demo.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

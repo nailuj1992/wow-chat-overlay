@@ -1,0 +1,118 @@
+/* WoW-style chat frame for OBS. All sizes scale from --font-size. */
+:root {
+  --font-size: 14px;
+  --bg-alpha: 0.7;
+  --font: "Arial Narrow", "Roboto Condensed", Arial, sans-serif;
+  --shadow: 1px 1px 0 #000, -1px 0 1px rgba(0,0,0,.8), 0 0 3px rgba(0,0,0,.9);
+}
+
+html, body {
+  margin: 0;
+  height: 100%;
+  background: transparent;
+  overflow: hidden;
+}
+
+.chat-frame {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font);
+}
+
+/* The little "General" tab on top of the WoW chat window */
+.chat-tab {
+  align-self: flex-start;
+  margin-left: 10px;
+  padding: 3px 16px 2px;
+  font: 700 calc(var(--font-size) * 0.72) var(--font);
+  color: #ffd100;
+  text-shadow: 1px 1px 0 #000;
+  background: linear-gradient(to bottom, rgba(70,60,40,.85), rgba(15,12,8,.85));
+  border: 1px solid rgba(160,130,70,.55);
+  border-bottom: none;
+  border-radius: 7px 7px 0 0;
+  box-shadow: inset 0 1px 0 rgba(255,220,140,.15);
+}
+.chat-tab.hidden { display: none; }
+
+.chat-log {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;   /* newest at bottom, old ones clip off the top */
+  overflow: hidden;
+  padding: 6px 10px;
+  /* Dark, slightly warm panel like the WoW chat frame */
+  background:
+    linear-gradient(to bottom, rgba(20, 16, 10, var(--bg-alpha)), rgba(5, 4, 2, var(--bg-alpha)));
+  border: 1px solid rgba(120, 100, 60, calc(var(--bg-alpha) * 0.8));
+  box-shadow: 0 0 8px rgba(0, 0, 0, calc(var(--bg-alpha) * 0.8));
+  border-radius: 2px 4px 4px 4px;
+}
+
+.msg {
+  color: var(--c, #fff);
+  font-size: var(--font-size);
+  line-height: 1.25;
+  text-shadow: var(--shadow);
+  margin: 1px 0;
+  overflow-wrap: anywhere;
+  animation: msg-in .25s ease-out;
+  transition: opacity 2s linear;
+}
+.msg.fade { opacity: 0; }
+
+@keyframes msg-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.msg .name { color: var(--name, inherit); }
+
+.msg.ch-raidWarning { font-weight: 700; }
+
+/* Emotes */
+.emote {
+  height: calc(var(--font-size) * 1.6);
+  vertical-align: middle;
+  margin: -0.3em 1px;
+}
+.emote-stack {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+}
+.emote-stack > .emote { vertical-align: top; margin: 0 1px; }
+.emote-stack > .zw {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+}
+
+/* Optional platform marker */
+.platform {
+  display: inline-block;
+  font-size: .6em;
+  font-weight: 700;
+  padding: 0 .3em;
+  margin-right: .3em;
+  border-radius: 3px;
+  vertical-align: .15em;
+  text-shadow: none;
+  color: #fff;
+}
+.platform.twitch  { background: #9146ff; }
+.platform.youtube { background: #ff0000; }
+.platform.demo    { background: #666; }
+
+/* Status line (connection messages) */
+.msg.ch-status { color: #888; font-style: italic; font-size: calc(var(--font-size) * .8); }

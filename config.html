@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WoW Chat Setup</title>
+  <style>
+    :root { --bg:#14110d; --panel:#1f1a14; --line:#4a3c26; --gold:#ffd100; --text:#e8e0d0; --muted:#9a8f7c; }
+    * { box-sizing: border-box; }
+    body { margin:0; background:var(--bg); color:var(--text); font:14px/1.4 system-ui, sans-serif; }
+    header { padding:16px 20px; border-bottom:1px solid var(--line); }
+    h1 { margin:0; color:var(--gold); font-size:20px; font-family: Georgia, serif; }
+    header p { margin:4px 0 0; color:var(--muted); }
+    main { display:grid; grid-template-columns: minmax(300px, 420px) 1fr; gap:20px; padding:20px; }
+    @media (max-width: 800px) { main { grid-template-columns: 1fr; } }
+    fieldset { border:1px solid var(--line); background:var(--panel); border-radius:6px; margin:0 0 14px; padding:10px 14px 12px; }
+    legend { color:var(--gold); padding:0 6px; font-weight:600; }
+    label { display:block; margin:8px 0 2px; color:var(--muted); font-size:12px; }
+    input[type=range] { width:100%; accent-color: var(--gold); }
+    output { color: var(--gold); }
+    input[type=text], input[type=number], select, textarea {
+      width:100%; background:#0d0b08; color:var(--text); border:1px solid var(--line); border-radius:4px; padding:6px 8px; font:inherit;
+    }
+    textarea { min-height:60px; resize:vertical; }
+    .check { display:flex; gap:8px; align-items:center; margin-top:8px; color:var(--text); font-size:13px; }
+    .row { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+    .preview { position:sticky; top:20px; align-self:start; }
+    .stage { height:420px; border-radius:6px; border:1px solid var(--line); overflow:hidden;
+      background: repeating-conic-gradient(#2a2a2a 0 25%, #222 0 50%) 0 0/24px 24px; }
+    iframe { width:100%; height:100%; border:0; }
+    .out { margin-top:14px; }
+    .out textarea { min-height:80px; font-family: ui-monospace, monospace; font-size:12px; }
+    button { margin-top:8px; background:linear-gradient(#8a1c0e,#5a0f06); color:var(--gold); border:1px solid #c4a35a; border-radius:4px; padding:8px 16px; font-weight:700; cursor:pointer; }
+    small { color:var(--muted); }
+  </style>
+</head>
+<body>
+<header>
+  <h1>WoW Chat Overlay — Setup</h1>
+  <p>Fill in the fields, copy the URL, paste it in an OBS Browser Source (with "Local file" unchecked).</p>
+</header>
+<main>
+  <form id="f">
+    <fieldset>
+      <legend>Twitch</legend>
+      <label>Channel(s), comma separated</label>
+      <input type="text" name="twitch" placeholder="mychannel">
+    </fieldset>
+
+    <fieldset>
+      <legend>YouTube (optional)</legend>
+      <label>API key (YouTube Data API v3)</label>
+      <input type="text" name="youtube_key" placeholder="AIza...">
+      <label>Live video ID (cheaper) <small>— or —</small> channel ID (UC…)</label>
+      <div class="row">
+        <input type="text" name="youtube_video" placeholder="video ID">
+        <input type="text" name="youtube_channel" placeholder="UC...">
+      </div>
+      <label>Min poll interval (s)</label>
+      <input type="number" name="youtube_interval" min="2" step="1">
+    </fieldset>
+
+    <fieldset>
+      <legend>Filters</legend>
+      <label>Hidden users (comma separated)</label>
+      <textarea name="hide"></textarea>
+      <div class="check"><input type="checkbox" name="hide_commands" id="hc"><label for="hc" style="margin:0;color:inherit">Hide !commands</label></div>
+      <div class="check"><input type="checkbox" name="events" id="ev"><label for="ev" style="margin:0;color:inherit">Show subs / raids / gifts</label></div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Emotes</legend>
+      <div class="check"><input type="checkbox" data-emote="7tv" id="e7"><label for="e7" style="margin:0;color:inherit">7TV</label></div>
+      <div class="check"><input type="checkbox" data-emote="bttv" id="eb"><label for="eb" style="margin:0;color:inherit">BetterTTV</label></div>
+      <div class="check"><input type="checkbox" data-emote="ffz" id="ef"><label for="ef" style="margin:0;color:inherit">FrankerFaceZ</label></div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Size &amp; opacity</legend>
+      <label>Background opacity: <output data-for="bg"></output></label>
+      <input type="range" name="bg" min="0" max="1" step="0.05">
+      <label>Chat opacity (text + background): <output data-for="opacity"></output></label>
+      <input type="range" name="opacity" min="0.1" max="1" step="0.05">
+      <div class="row">
+        <div><label>Width (px, 0 = fill source)</label><input type="number" name="width" min="0" step="10"></div>
+        <div><label>Height (px, 0 = fill source)</label><input type="number" name="height" min="0" step="10"></div>
+      </div>
+      <small>Tip: with 0 the chat fills the OBS Browser Source, so you can also just resize the source in OBS.</small>
+    </fieldset>
+
+    <fieldset>
+      <legend>Look</legend>
+      <div class="row">
+        <div><label>Language</label>
+          <select name="lang"><option value="en">English ([Officer])</option><option value="es">Español ([Oficial])</option></select></div>
+        <div><label>Name colors</label>
+          <select name="names"><option value="class">WoW class colors</option><option value="platform">Twitch / YouTube colors</option><option value="channel">Same as line</option></select></div>
+      </div>
+      <label>Font size (px)</label><input type="number" name="font_size" min="8" max="60">
+      <div class="row">
+        <div><label>Fade after (s, 0 = never)</label><input type="number" name="fade" min="0"></div>
+        <div><label>Max messages</label><input type="number" name="max" min="1"></div>
+      </div>
+      <div class="row">
+        <div><label>Tab label (empty = none)</label><input type="text" name="tab"></div>
+        <div><label>Font override</label><input type="text" name="font" placeholder="Friz Quadrata TT"></div>
+      </div>
+      <label>Platform badge</label>
+      <select name="platform_icon"><option value="auto">Auto (only with 2+ platforms)</option><option value="1">Always</option><option value="0">Never</option></select>
+    </fieldset>
+
+    <fieldset>
+      <legend>Roles → WoW channel</legend>
+      <div class="row" id="roles"></div>
+    </fieldset>
+  </form>
+
+  <div class="preview">
+    <div class="stage"><iframe id="preview" title="Preview"></iframe></div>
+    <div class="out">
+      <label>Overlay URL for OBS</label>
+      <textarea id="url" readonly></textarea>
+      <button type="button" id="copy">Copy URL</button>
+      <p><small>The preview uses demo messages. OBS: Sources → + → Browser → uncheck "Local file" → paste URL. Suggested size 500×400.</small></p>
+    </div>
+  </div>
+</main>
+
+<script src="js/config.js"></script>
+<script>
+  const D = WC.DEFAULTS;
+  const f = document.getElementById('f');
+  const base = location.href.replace(/config\.html.*$/, 'index.html');
+  const CH = ['say','yell','whisper','emote','guild','officer','party','partyLeader','raid','raidLeader','raidWarning'];
+
+  // Build role selects
+  const roles = document.getElementById('roles');
+  for (const r of ['broadcaster','moderator','vip','subscriber','default']) {
+    const d = document.createElement('div');
+    d.innerHTML = `<label>${r}</label><select name="role_${r}">${CH.map(c => `<option>${c}</option>`).join('')}</select>`;
+    roles.append(d);
+  }
+
+  // Fill defaults
+  for (const el of f.elements) {
+    if (!el.name || !(el.name in D)) continue;
+    if (el.type === 'checkbox') el.checked = !!D[el.name];
+    else el.value = D[el.name];
+  }
+  f.querySelectorAll('[data-emote]').forEach(c => c.checked = D.emotes.split(',').includes(c.dataset.emote));
+
+  function params() {
+    const p = new URLSearchParams();
+    for (const el of f.elements) {
+      if (!el.name || !(el.name in D)) continue;
+      const v = el.type === 'checkbox' ? el.checked : el.value.trim();
+      const def = D[el.name];
+      if (typeof def === 'boolean') { if (v !== def) p.set(el.name, v ? '1' : '0'); }
+      else if (String(v) !== String(def)) p.set(el.name, v);
+    }
+    const em = [...f.querySelectorAll('[data-emote]:checked')].map(c => c.dataset.emote).join(',');
+    if (em !== D.emotes) p.set('emotes', em);
+    return p;
+  }
+
+  let t;
+  function update() {
+    f.querySelectorAll('output[data-for]').forEach(o => {
+      o.textContent = Math.round(f.elements[o.dataset.for].value * 100) + '%';
+    });
+    const p = params();
+    document.getElementById('url').value = base + (p.toString() ? '?' + p : '');
+    clearTimeout(t);
+    t = setTimeout(() => {
+      const pp = new URLSearchParams(p);
+      pp.delete('youtube_key'); // keep the preview offline-ish
+      pp.set('demo', '1');
+      pp.set('fade', '0');
+      document.getElementById('preview').src = base + '?' + pp;
+    }, 400);
+  }
+  f.addEventListener('input', update);
+  document.getElementById('copy').onclick = async () => {
+    const u = document.getElementById('url');
+    try { await navigator.clipboard.writeText(u.value); } catch { u.select(); document.execCommand('copy'); }
+    document.getElementById('copy').textContent = 'Copied!';
+    setTimeout(() => document.getElementById('copy').textContent = 'Copy URL', 1500);
+  };
+  update();
+</script>
+</body>
+</html>
