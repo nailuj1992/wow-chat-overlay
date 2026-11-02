@@ -51,6 +51,7 @@ WC.DEFAULTS = {
   role_vip: 'partyLeader',
   role_subscriber: 'guild',
   role_default: 'say',
+  role_bot: 'yell',         // Users whose name ends in "bot" (e.g. DuelosRPGbot). Wins over other roles. Empty = off
 
   demo: false,              // Fake messages for previewing
 };

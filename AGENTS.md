@@ -57,7 +57,7 @@ Rules:
 
 ## Current defaults
 
-Background 0.7, size 400×250 (0 = fill source), name colors `platform`, font 14px, fade 90s, max 50, labels `en`. No default channel.
+Background 0.7, size 400×250 (0 = fill source), name colors `platform`, font 14px, fade 90s, max 50, labels `en`. No default channel. Users whose login or display name ends in `bot` (case-insensitive) render as `role_bot` (`yell`), ahead of broadcaster/mod/VIP/sub roles; `/me`, announcements and system lines keep their own style.
 
 ## Testing
 

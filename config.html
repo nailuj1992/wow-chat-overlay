@@ -135,9 +135,11 @@
 
   // Build role selects
   const roles = document.getElementById('roles');
-  for (const r of ['broadcaster','moderator','vip','subscriber','default']) {
+  for (const r of ['broadcaster','moderator','vip','subscriber','default','bot']) {
     const d = document.createElement('div');
-    d.innerHTML = `<label>${r}</label><select name="role_${r}">${CH.map(c => `<option>${c}</option>`).join('')}</select>`;
+    const label = r === 'bot' ? 'bot (name ends in "bot")' : r;
+    const off = r === 'bot' ? '<option value="">off</option>' : '';
+    d.innerHTML = `<label>${label}</label><select name="role_${r}">${off}${CH.map(c => `<option>${c}</option>`).join('')}</select>`;
     roles.append(d);
   }
 

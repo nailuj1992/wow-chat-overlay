@@ -75,6 +75,11 @@
     if (m.kind === 'announcement' || m.kind === 'highlight' || m.kind === 'superchat') return 'raidWarning';
     if (m.kind === 'cheer') return 'yell';
     const r = (m.user && m.user.roles) || {};
+    // Bots ("...bot" at the end of the name, any case) win over viewer roles
+    const u = m.user || {};
+    if (cfg.role_bot && CHANNELS[cfg.role_bot] && [u.login, u.name].some(n => /bot$/i.test(n || ''))) {
+      return cfg.role_bot;
+    }
     let ch = cfg.role_default;
     if (r.broadcaster) ch = cfg.role_broadcaster;
     else if (r.moderator) ch = cfg.role_moderator;

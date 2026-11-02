@@ -44,11 +44,12 @@ GitHub Pages serves the `dev` branch root. Every merge into `dev` goes live in 1
 | Subscriber/member  | `[Guild] [Name]: msg`            | green      |
 | Everyone else      | `[Name] says: msg`               | white      |
 | `/me`              | `Name dances`                    | orange     |
+| Bot (name ends in `bot`, e.g. DuelosRPGbot) | `[Name] yells: msg` | red |
 | Cheer (bits)       | `[Name] yells: msg`              | red        |
 | Announcement / highlighted / Super Chat | `[Raid Warning] [Name]: msg` | red, bold |
 | Subs, raids, gifts | system line                      | yellow     |
 
-Names get a WoW class color (stable per user). Change mapping with `role_*` settings.
+Names use the user's Twitch/YouTube color by default (`names=class` for WoW class colors). Change mapping with `role_*` settings. The bot rule wins over other roles (a bot that is also a mod still yells); `role_bot=` (empty) turns it off.
 
 ## Settings (URL parameters)
 
@@ -71,7 +72,7 @@ Names get a WoW class color (stable per user). Change mapping with `role_*` sett
 | `max` | `50` | Max lines |
 | `fade` | `90` | Seconds until a line fades, `0` = never |
 | `platform_icon` | `auto` | TW/YT badge: `auto`, `1`, `0` |
-| `role_broadcaster` / `role_moderator` / `role_vip` / `role_subscriber` / `role_default` | see above | `say, yell, whisper, emote, guild, officer, party, partyLeader, raid, raidLeader, raidWarning` |
+| `role_broadcaster` / `role_moderator` / `role_vip` / `role_subscriber` / `role_default` / `role_bot` | see above | `say, yell, whisper, emote, guild, officer, party, partyLeader, raid, raidLeader, raidWarning` |
 | `demo` | `0` | Fake messages for testing |
 
 Deleted messages, timeouts, bans and `/clear` remove lines from the overlay too.
