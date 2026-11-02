@@ -31,7 +31,22 @@
   }
 
   // ---- Log ----
+  /** "!s hola" -> "hola" for commands listed in show_commands (e.g. TTS). Returns true if stripped. */
+  function stripShownCommand(m) {
+    const match = /^\s*!(\S+)\s*/.exec(m.text || '');
+    if (!match || !cfg.shownCommands.has(match[1].toLowerCase())) return false;
+    const prefix = match[0];
+    m.text = m.text.slice(prefix.length);
+    const first = m.fragments && m.fragments[0];
+    if (first && first.type === 'text' && first.text.startsWith(prefix)) {
+      first.text = first.text.slice(prefix.length);
+    }
+    m.fragments = (m.fragments || []).filter(f => f.type !== 'text' || f.text);
+    return true;
+  }
+
   function add(m) {
+    if (stripShownCommand(m) && !m.fragments.length) return; // bare "!s"
     if (isHidden(m)) return;
     const el = WC.render(m);
     log.append(el);

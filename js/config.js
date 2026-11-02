@@ -25,6 +25,7 @@ WC.DEFAULTS = {
   // Filters
   hide: 'nightbot,streamelements,streamlabs,soundalerts,moobot,fossabot,wizebot,sery_bot,kofistreambot,botrixoficial,commanderroot,pokemoncommunitygame,blerp,frostytoolsdotcom,tangiabot,own3d,creatisbot',
   hide_commands: true,      // Hide messages starting with "!"
+  show_commands: 's',       // Commands still shown, without the prefix ("!s hola" -> "hola"), e.g. TTS. Comma separated
   events: true,             // Show subs / raids / gifts as yellow system lines
 
   // Emotes
@@ -73,5 +74,6 @@ WC.config = (function () {
   cfg.twitchChannels = list(cfg.twitch).map(c => c.replace(/^#/, ''));
   cfg.hiddenUsers = new Set(list(cfg.hide).map(u => u.replace(/^@/, '')));
   cfg.emoteProviders = list(cfg.emotes);
+  cfg.shownCommands = new Set(list(cfg.show_commands).map(c => c.replace(/^!/, '')));
   return cfg;
 })();
