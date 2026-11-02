@@ -58,6 +58,7 @@ Names use the user's Twitch/YouTube color by default (`names=class` for WoW clas
 | `twitch` | – | Channel(s), comma separated |
 | `hide` | common bots | Users to hide, comma separated (Nightbot, StreamElements, SoundAlerts, Streamlabs, Moobot, Fossabot…) |
 | `hide_commands` | `1` | Hide messages starting with `!` |
+| `show_commands` | `s` | Commands still shown, prefix removed (`!s hola` → `hola`, e.g. TTS). Comma separated, empty = none |
 | `events` | `1` | Show subs/raids/gifts |
 | `emotes` | `7tv,bttv,ffz` | Third-party emote providers |
 | `lang` | `en` | `en` or `es` labels (`[Oficial]`, `dice:`…) |
